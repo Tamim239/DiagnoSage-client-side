@@ -1,9 +1,11 @@
+import { useAuth } from "../../Hook/useAuth"
 import { Container } from "../Container/Container"
 import { Link, NavLink } from 'react-router-dom'
 
 export const Navbar = () => {
  
-  const user = false
+  const {user, logOut} = useAuth()
+  
 
   const navOptions = (
     <>
@@ -27,9 +29,9 @@ export const Navbar = () => {
     </> )
 
 const signOut = () => {
-  // logOut()
-  //   .then(() => {})
-  //   .catch((err) => console.log(err.message));
+  logOut()
+    .then(() => {})
+    .catch((err) => console.log(err.message));
 };
 
 
