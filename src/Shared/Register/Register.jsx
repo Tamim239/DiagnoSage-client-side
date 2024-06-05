@@ -1,23 +1,28 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import cover from "../../assets/RegCover.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useAxiosPublic } from "../../Hook/useAxiosPublic";
-import { useAxiosSecure } from "../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useAuth } from "../../Hook/useAuth";
 
-const image_api_key= import.meta.env.VITE_IMAGE_API_KEY
-const image_api_url = `https://api.imgbb.com/1/upload?key=${image_api_key}`
+const image_api_key = import.meta.env.VITE_IMAGE_API_KEY;
+const image_api_url = `https://api.imgbb.com/1/upload?key=${image_api_key}`;
 
 export const Register = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [district, setDistrict] = useState([]);
   const [upazila, setUpazila] = useState([]);
-  const axiosPublic = useAxiosPublic()
-  const axiosSecure = useAxiosSecure()
-  const { createUser, updateUserProfile } = useAuth()
+  const axiosPublic = useAxiosPublic();
+  const { createUser, updateUserProfile } = useAuth();
+  const [Error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("/district.json").then((res) => {
@@ -31,57 +36,55 @@ export const Register = () => {
     });
   }, []);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
     console.log(data);
-    const imageFile = {image: data.avatar[0]}
-// upload image in hosting side imgBB
-  const res = await axiosPublic.post(image_api_url, imageFile,{
-    headers:{
-      'content-type' : 'multipart/form-data'
+    const password_confirmation = e.target.password_confirmation.value;
+    if (data.password !== password_confirmation) {
+      return setError("password not match");
     }
-  })
-  console.log(res.data)
-  if(res.data.success){
-    const userList = {
-      name: data.name,
-      bloodGroup: data.bloodGroup,
-      district: data.district,
-      upazila: data.upazila,
-      image : res.data.data.display_url
-    }
-   console.log(userList)
-    // image bb
-    createUser(data.email, data.password)
-    .then(result => {
+    setError("");
+    const imageFile = { image: data.avatar[0] };
+    // upload image in hosting side imgBB
+    const res = await axiosPublic.post(image_api_url, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    console.log(res.data);
+    if (res.data.success) {
+      const userList = {
+        name: data.name,
+        bloodGroup: data.bloodGroup,
+        district: data.district,
+        upazila: data.upazila,
+        image: res.data.data.display_url,
+        status: "active",
+      };
+      console.log(userList);
+      // image bb
+      createUser(data.email, data.password).then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        updateUserProfile(data.name, data.photoURL)
-            .then(() => {
-                const userInfo = {
-                    name: data.name,
-                    email: data.email
-                }
-                axiosPublic.post('/users', userInfo)
-                .then(res=>{
-                    if(res.data.insertedId){
-                        reset();
-                        Swal.fire({
-                            position: 'top-center',
-                            icon: 'success',
-                            title: 'User created successfully.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        Navigate('/');
-                    }
-                })
-            })
-            .catch(error => console.log(error))
-    })
-
-
-  }
-
+        updateUserProfile(data.name, res.data.data.display_url)
+          .then(() => {
+            axiosPublic.post("/users", userList).then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "User created successfully.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
+          })
+          .catch((error) => console.log(error));
+      });
+    }
   };
 
   return (
@@ -136,7 +139,10 @@ export const Register = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-8 grid grid-cols-6 gap-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="mt-8 grid grid-cols-6 gap-6"
+            >
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="Name"
@@ -147,11 +153,13 @@ export const Register = () => {
                 <input
                   type="text"
                   id="Name"
-                  {...register('name', {required: true})}
+                  {...register("name", { required: true })}
                   name="name"
                   className="input input-bordered mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
-                {errors.name && <span className="text-red-500">This field is required</span>}
+                {errors.name && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -162,11 +170,13 @@ export const Register = () => {
                   Avatar
                 </label>
                 <input
-                  {...register('avatar', {required: true})}
+                  {...register("avatar", { required: true })}
                   type="file"
                   className="file-input w-full max-w-xs"
                 />
-                {errors.avatar && <span className="text-red-500">This field is required</span>}
+                {errors.avatar && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
 
               <div className="col-span-6">
@@ -181,11 +191,13 @@ export const Register = () => {
                 <input
                   type="email"
                   id="Email"
-                  {...register("email", {required: true})}
+                  {...register("email", { required: true })}
                   name="email"
                   className="input input-bordered mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
-                {errors.email && <span className="text-red-500">This field is required</span>}
+                {errors.email && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div className="col-span-2">
                 <label
@@ -198,7 +210,7 @@ export const Register = () => {
 
                 <select
                   defaultValue="default"
-                  {...register("bloodGroup", {required: true})}
+                  {...register("bloodGroup", { required: true })}
                   className="select select-bordered w-full"
                 >
                   <option disabled value="default">
@@ -213,7 +225,9 @@ export const Register = () => {
                   <option value="O+">O+</option>
                   <option value="O-">O-</option>
                 </select>
-                {errors.bloodGroup && <span className="text-red-500">This field is required</span>}
+                {errors.bloodGroup && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div className="col-span-2">
                 <label
@@ -225,7 +239,7 @@ export const Register = () => {
                 </label>
                 <select
                   defaultValue="default"
-                  {...register("district", {required: true})}
+                  {...register("district", { required: true })}
                   className="select select-bordered w-full"
                 >
                   <option disabled value="default">
@@ -236,7 +250,9 @@ export const Register = () => {
                       {item?.name}
                     </option>
                   ))}
-                  {errors.district && <span className="text-red-500">This field is required</span>}
+                  {errors.district && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
                 </select>
               </div>
               <div className="col-span-2">
@@ -250,7 +266,7 @@ export const Register = () => {
 
                 <select
                   defaultValue="default"
-                  {...register("upazila", {required: true})}
+                  {...register("upazila", { required: true })}
                   className="select select-bordered w-full"
                 >
                   <option disabled value="default">
@@ -262,7 +278,9 @@ export const Register = () => {
                     </option>
                   ))}
                 </select>
-                {errors.upazila && <span className="text-red-500">This field is required</span>}
+                {errors.upazila && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -282,14 +300,27 @@ export const Register = () => {
                     required: true,
                     minLength: 6,
                     maxLength: 20,
-                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                })}
+                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                  })}
                   className="input input-bordered mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
-                {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
-                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+                {errors.password?.type === "required" && (
+                  <p className="text-red-600">Password is required</p>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <p className="text-red-600">Password must be 6 characters</p>
+                )}
+                {errors.password?.type === "maxLength" && (
+                  <p className="text-red-600">
+                    Password must be less than 20 characters
+                  </p>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <p className="text-red-600">
+                    Password must have one Uppercase one lower case, one number
+                    and one special character.
+                  </p>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -303,10 +334,10 @@ export const Register = () => {
                 <input
                   type="password"
                   id="PasswordConfirmation"
-                  // {...register("confirmPassword", {required: true})}
                   name="password_confirmation"
                   className="input input-bordered mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                {Error && <p className="text-red-500">{Error}</p>}
               </div>
 
               <div className="col-span-6">
@@ -315,7 +346,7 @@ export const Register = () => {
                     type="checkbox"
                     id="MarketingAccept"
                     name="marketing_accept"
-                    {...register("checkbox", {required: true})}
+                    required
                     className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
                   />
 
@@ -341,7 +372,11 @@ export const Register = () => {
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <input type="submit" value="Create an account" className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"/>
+                <input
+                  type="submit"
+                  value="Create an account"
+                  className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                />
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                   Already have an account?
