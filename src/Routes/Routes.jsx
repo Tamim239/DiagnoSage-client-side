@@ -4,6 +4,9 @@ import { Home } from "../Pages/Home/Home/Home";
 import { Login } from "../Shared/Login/Login";
 import { Register } from "../Shared/Register/Register";
 import { Dashboard } from "../Layout/Dashboard";
+import { MyProfile } from "../Components/Dashboard/MyProfile/MyProfile";
+import { MyUpcomingAppointments } from "../Components/Dashboard/MyUpcomingAppointments/MyUpcomingAppointments";
+import { TestResult } from "../Components/Dashboard/TestResult/TestResult";
 
 export const router = createBrowserRouter([
     {
@@ -37,8 +40,16 @@ export const router = createBrowserRouter([
       children: [
         // normal user
         {
-          path: "cart",
-          element: <p>Hello user</p>,
+          path: "myProfile",
+          element: <MyProfile />,
+        },
+        {
+          path: 'myUpcomingAppointments',
+          element: <MyUpcomingAppointments />
+        },
+        {
+          path: 'testResult',
+          element: <TestResult />
         },
   
         // admin routes

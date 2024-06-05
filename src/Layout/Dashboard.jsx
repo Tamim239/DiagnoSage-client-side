@@ -1,5 +1,5 @@
-import { FaBook, FaCalendar, FaCartShopping, FaEnvelope, FaHouse, FaList, FaUsers, FaUtensils } from 'react-icons/fa6';
-import { RiMenuSearchLine } from "react-icons/ri";
+import { FaBook, FaCartShopping, FaHouse, FaList, FaUsers, FaUtensils } from 'react-icons/fa6';
+
 import { MdOutlineReviews } from "react-icons/md";
 import {NavLink, Outlet} from 'react-router-dom'
 import { useAdmin } from '../Hook/useAdmin';
@@ -25,18 +25,15 @@ export const Dashboard = () => {
                     </>
                     :
                     <>
-                    <li><NavLink to="/dashboard/userHome"><FaHouse></FaHouse> userHome</NavLink></li>
-                <li><NavLink to="/dashboard/reservation"><FaCalendar></FaCalendar> Reservation</NavLink></li>
-                <li><NavLink to="/dashboard/cart"><FaCartShopping></FaCartShopping> My Cart</NavLink></li>
-                <li><NavLink to="/dashboard/review"><MdOutlineReviews />Add Review</NavLink></li>
-                <li><NavLink to="/dashboard/bookings"><FaList></FaList>My Bookings</NavLink></li>
+                    <li><NavLink to="/dashboard/myProfile"><FaHouse></FaHouse>My Profile</NavLink></li>
+                <li><NavLink to="/dashboard/myUpcomingAppointments"><FaCartShopping></FaCartShopping> My Upcoming Appointments</NavLink></li>
+                <li><NavLink to="/dashboard/testResult"><MdOutlineReviews />Test Results</NavLink></li>
+
                     </>
                 }
               {/* shared link */}
                 <div className='divider'></div>
                 <li><NavLink to="/"><FaHouse></FaHouse>Home</NavLink></li>
-                <li><NavLink to="/order/salad"><RiMenuSearchLine />Menu</NavLink></li>
-                <li><NavLink to="/order/contact"><FaEnvelope/> Contact</NavLink></li>
             </ul>
 
         </div>
