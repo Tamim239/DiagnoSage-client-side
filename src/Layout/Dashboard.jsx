@@ -25,7 +25,7 @@ export const Dashboard = () => {
                 <li><NavLink to="/dashboard/reservation"><FaUsers /> Reservation</NavLink></li>
                 <li><NavLink to="/dashboard/statisticsPage"><FaUsers />Statistics Page</NavLink></li>
                     </>
-                    :
+                    : 
                     <>
                     <li><NavLink to="/dashboard/myProfile"><FaHouse></FaHouse>My Profile</NavLink></li>
                 <li><NavLink to="/dashboard/myUpcomingAppointments"><FaCartShopping></FaCartShopping> My Upcoming Appointments</NavLink></li>
