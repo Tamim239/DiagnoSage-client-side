@@ -1,6 +1,42 @@
-import { Link } from "react-router-dom"
+import { Link,  useNavigate } from "react-router-dom"
+import { useAuth } from "../../Hook/useAuth"
+import Swal from "sweetalert2";
+
 
 export const Login = () => {
+
+  const {signIn} = useAuth()
+const navigate = useNavigate()
+// const location = useLocation()
+
+  const handleSubmit = e =>{
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password)
+    signIn(email, password)
+    .then(res=>{
+      console.log(res.user)
+      Swal.fire({
+        title: 'user Login successfully.',
+        showClass:{
+          popup: 'animate_animated animate_fadeInDown'
+        },
+        hideClass:{
+          popup: 'animate_animated animate_fadeOutUp'
+        },
+    });
+    navigate("dashboard/myProfile");
+    })
+    .catch(err =>{
+      console.log(err.message)
+    })
+}
+
+
+
+
   return (
 <section className="relative flex flex-wrap lg:h-screen lg:items-center">
   <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
@@ -13,13 +49,14 @@ export const Login = () => {
       </p>
     </div>
 
-    <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+    <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-8 max-w-md space-y-4">
       <div>
         <label htmlFor="email" className="sr-only">Email</label>
 
         <div className="relative">
           <input
             type="email"
+            name="email"
             className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
             placeholder="Enter email"
           />
@@ -49,6 +86,7 @@ export const Login = () => {
         <div className="relative">
           <input
             type="password"
+            name="password"
             className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
             placeholder="Enter password"
           />

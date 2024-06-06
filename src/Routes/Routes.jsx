@@ -7,6 +7,15 @@ import { Dashboard } from "../Layout/Dashboard";
 import { MyProfile } from "../Components/Dashboard/MyProfile/MyProfile";
 import { MyUpcomingAppointments } from "../Components/Dashboard/MyUpcomingAppointments/MyUpcomingAppointments";
 import { TestResult } from "../Components/Dashboard/TestResult/TestResult";
+import { PrivateRoute } from "./PrivateRoute";
+import { AdminRoute } from "./AdminRoute";
+import { AllUser } from "../Components/Dashboard/AllUser/AllUser";
+import { AddTest } from "../Components/Dashboard/AddTest/AddTest";
+import { AllTest } from "../Components/Dashboard/AllTest/AllTest";
+import { Reservation } from "../Components/Dashboard/Reservation/Reservation";
+import { AddBanner } from "../Components/Dashboard/AddBanner/AddBanner";
+import { AllBanner } from "../Components/Dashboard/AllBanner/AllBanner";
+import { StatisticsPage } from "../Components/Dashboard/StatisticsPage/StatisticsPage";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +39,7 @@ export const router = createBrowserRouter([
     },
 
 
+    
     // dashboard 
     {
       path: "dashboard",
@@ -41,40 +51,47 @@ export const router = createBrowserRouter([
         // normal user
         {
           path: "myProfile",
-          element: <MyProfile />,
+          element: <PrivateRoute><MyProfile /></PrivateRoute>
         },
         {
           path: 'myUpcomingAppointments',
-          element: <MyUpcomingAppointments />
+          element:  <PrivateRoute> <MyUpcomingAppointments /> </PrivateRoute> 
         },
         {
           path: 'testResult',
-          element: <TestResult />
+          element: <PrivateRoute><TestResult /></PrivateRoute>
         },
   
+
+
         // admin routes
         {
-          path: "addItems",
-          element: (
-
-              <p>Hello admin</p>
-   
-          ),
+          path: "allUser",
+          element: <AdminRoute><AllUser/></AdminRoute>
         },
         {
-          path: "manageItems",
-          element: 
-           <p>admin protected</p>
-           
-  
+          path: "addTest",
+          element: <AdminRoute><AddTest/></AdminRoute>
         },
         {
-          path: "allUsers",
-          element: (
-            
-             <p>admin see all user</p>
-          
-          ),
+          path: "allTest",
+          element: <AdminRoute><AllTest /></AdminRoute>
+        },
+        {
+          path: 'reservation',
+          element: <AdminRoute><Reservation /></AdminRoute>
+        },
+        {
+          path: 'addBanner',
+          element: <AdminRoute><AddBanner /></AdminRoute>
+        },
+        {
+          path: 'allBanner',
+          element: <AdminRoute><AllBanner /></AdminRoute>
+        },
+        {
+          path: 'statisticsPage',
+          element: <AdminRoute><StatisticsPage /></AdminRoute>
         },
       ],
     },

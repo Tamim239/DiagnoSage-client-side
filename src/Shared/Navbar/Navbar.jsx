@@ -1,5 +1,4 @@
 import { useAuth } from "../../Hook/useAuth"
-import { Container } from "../Container/Container"
 import { Link, NavLink } from 'react-router-dom'
 
 export const Navbar = () => {
@@ -13,21 +12,20 @@ export const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="menu">Our Menu</NavLink>
+        <NavLink to="menu">All Tests</NavLink>
       </li>
       <li>
         <NavLink to="/order">Our Shop</NavLink>
       </li>
       {user && (
-        <Link to="/dashboard/cart" className="indicator">
-          {/* <span className="indicator-item badge badge-secondary">{0}+</span> */}
+        <Link to="/dashboard/myProfile" className="indicator">
           <button className="mr-3">
             Dashboard
           </button>
         </Link>
       )}
     </> )
-
+    
 const signOut = () => {
   logOut()
     .then(() => {})
