@@ -1,4 +1,5 @@
 
+import axios from "axios"
 import { useAuth } from "../../Hook/useAuth"
 import { Link, NavLink } from 'react-router-dom'
 
@@ -24,12 +25,15 @@ export const Navbar = () => {
       )}
     </> )
     
-const signOut = () => {
-  logOut()
-    .then(() => {})
-    .catch((err) => console.log(err.message));
-};
-
+    const signOut = async() =>{
+      const { data } = await axios(`http://localhost:5000/logout/logout`,{
+        withCredentials: true,
+      });
+      console.log(data);
+      logOut()
+      
+      console.log('hello')
+    }
 
   return (
     <div className=" navbar  fixed z-10 bg-black max-w-screen-xl mx-auto bg-opacity-30 text-white">

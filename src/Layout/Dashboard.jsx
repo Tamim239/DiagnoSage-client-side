@@ -6,9 +6,11 @@ import { useAdmin } from '../Hook/useAdmin';
 export const Dashboard = () => {
 
  
-    const [isAdmin] = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin();
     console.log(isAdmin)
-
+    if(isAdminLoading){
+        return <progress className="progress w-56"></progress>
+    }
   return (
     <div className='flex'>
         {/* dashboard side option */}
