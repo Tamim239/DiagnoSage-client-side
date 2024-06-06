@@ -17,11 +17,13 @@ export const Dashboard = () => {
                 {
                     isAdmin ? 
                     <>
-                    <li><NavLink to="/dashboard/adminHome"><FaHouse></FaHouse> Admin Home</NavLink></li>
-                <li><NavLink to="/dashboard/addItems"> <FaUtensils /> Add Items</NavLink></li>
-                <li><NavLink to="/dashboard/manageItems"><FaList /> Manage Items</NavLink></li>
-                <li><NavLink to="/dashboard/manageBookings"><FaBook />Manage Bookings</NavLink></li>
-                <li><NavLink to="/dashboard/allUsers"><FaUsers /> All User</NavLink></li>
+                    <li><NavLink to="/dashboard/addBanner"><FaHouse></FaHouse> Add Banner</NavLink></li>
+                <li><NavLink to="/dashboard/allBanner"> <FaUtensils />All Banner</NavLink></li>
+                <li><NavLink to="/dashboard/addTest"><FaList /> Add Test</NavLink></li>
+                <li><NavLink to="/dashboard/allTest"><FaBook />All Test</NavLink></li>
+                <li><NavLink to="/dashboard/allUser"><FaUsers /> All User</NavLink></li>
+                <li><NavLink to="/dashboard/reservation"><FaUsers /> Reservation</NavLink></li>
+                <li><NavLink to="/dashboard/statisticsPage"><FaUsers />Statistics Page</NavLink></li>
                     </>
                     :
                     <>

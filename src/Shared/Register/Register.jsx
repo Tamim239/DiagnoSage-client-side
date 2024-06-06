@@ -54,6 +54,7 @@ export const Register = () => {
     if (res.data.success) {
       const userList = {
         name: data.name,
+        email: data.email,
         bloodGroup: data.bloodGroup,
         district: data.district,
         upazila: data.upazila,

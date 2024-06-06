@@ -26,8 +26,9 @@ const navigate = useNavigate()
         hideClass:{
           popup: 'animate_animated animate_fadeOutUp'
         },
-    });
-    navigate("dashboard/myProfile");
+    })
+navigate('/dashboard')
+
     })
     .catch(err =>{
       console.log(err.message)

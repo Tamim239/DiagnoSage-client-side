@@ -1,11 +1,9 @@
+
 import { useAuth } from "../../Hook/useAuth"
 import { Link, NavLink } from 'react-router-dom'
 
 export const Navbar = () => {
- 
   const {user, logOut} = useAuth()
-  
-
   const navOptions = (
     <>
       <li>
