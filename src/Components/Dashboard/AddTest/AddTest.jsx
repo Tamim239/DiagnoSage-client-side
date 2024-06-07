@@ -15,7 +15,7 @@ export const AddTest = () => {
     const imageURL = form.imageURL.value;
     const testDate = new Date().toLocaleDateString(setStartDate);
     const price = parseFloat(form.price.value);
-    const slots = form.slots.value;
+    const slots = parseInt(form.slots.value);
     const description = form.description.value;
 
     const testInfo = {
