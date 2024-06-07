@@ -1,5 +1,4 @@
 
-import axios from "axios"
 import { useAuth } from "../../Hook/useAuth"
 import { Link, NavLink } from 'react-router-dom'
 
@@ -13,9 +12,6 @@ export const Navbar = () => {
       <li>
         <NavLink to="menu">All Tests</NavLink>
       </li>
-      <li>
-        <NavLink to="/order">Our Shop</NavLink>
-      </li>
       {user && (
         <Link to="/dashboard/myProfile" className="indicator">
           <button className="mr-3">
@@ -25,14 +21,8 @@ export const Navbar = () => {
       )}
     </> )
     
-    const signOut = async() =>{
-      const { data } = await axios(`http://localhost:5000/logout/logout`,{
-        withCredentials: true,
-      });
-      console.log(data);
+    const signOut =() =>{
       logOut()
-      
-      console.log('hello')
     }
 
   return (
