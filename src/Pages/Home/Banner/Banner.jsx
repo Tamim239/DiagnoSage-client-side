@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useBanner } from "../../../Hook/useBanner";
 
 export const Banner = () => {
-    const {data, isLoading, refetch} = useBanner()
+    const {data, isLoading} = useBanner()
     if(isLoading){
         return <progress className="progress w-56"></progress>
     }
@@ -27,7 +27,7 @@ console.log(data)
           </p>
 
           <div className="mt-8  text-center">
-            <Link
+            <Link to="/allTests"
               className="w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
             >
               All Tests

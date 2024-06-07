@@ -20,7 +20,7 @@ console.log(id)
             confirmButtonText: "Yes, delete it!",
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/banners/${id}`)
+                axios.delete(`${import.meta.env.VITE_API_URL}/banners/${id}`)
                 .then(res =>{
                     console.log(res.data)
                     if(res.data?.deletedCount > 0){

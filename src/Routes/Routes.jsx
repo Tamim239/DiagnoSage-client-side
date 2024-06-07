@@ -16,6 +16,8 @@ import { Reservation } from "../Components/Dashboard/Reservation/Reservation";
 import { AddBanner } from "../Components/Dashboard/AddBanner/AddBanner";
 import { AllBanner } from "../Components/Dashboard/AllBanner/AllBanner";
 import { StatisticsPage } from "../Components/Dashboard/StatisticsPage/StatisticsPage";
+import { AllTests } from "../Pages/AllTests/AllTests";
+import { TestDetails } from "../Pages/AllTests/TestDetails";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +28,15 @@ export const router = createBrowserRouter([
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/allTests",
+          element: <AllTests />,
+        },
+        {
+          path: "/testDetails/:id",
+          element: <TestDetails />,
+          loader: ({params}) => fetch(`http://localhost:5000/tests/${params.id}`)
         },
     {
       path: "/login",

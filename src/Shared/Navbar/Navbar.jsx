@@ -10,10 +10,10 @@ export const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="menu">All Tests</NavLink>
+        <NavLink to="/allTests">All Tests</NavLink>
       </li>
       {user && (
-        <Link to="/dashboard/myProfile" className="indicator">
+        <Link to="/dashboard" className="indicator">
           <button className="mr-3">
             Dashboard
           </button>
