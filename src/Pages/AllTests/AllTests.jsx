@@ -50,9 +50,9 @@ export const AllTests = () => {
           />
 
           <div className="mt-2">
-            <dl>
+            <div>
               <div>
-                <dt className="sr-only">${item?.price}</dt>
+                <div className="sr-only">${item?.price}</div>
 
                 <dd className="text-sm text-gray-500">{item?.testDate}</dd>
               </div>
@@ -60,7 +60,7 @@ export const AllTests = () => {
               <div>
                <h1 className="font-medium"> {item?.title}</h1>
               </div>
-            </dl>
+            </div>
             <div>
               <p>{item?.description}</p>
             </div>

@@ -42,7 +42,7 @@ export const MyProfile = () => {
       image,
     };
     console.log(userUpdate);
-axios.put(`http://localhost:5000/users/${data?._id}`, userUpdate)
+axios.put(`${import.meta.env.VITE_API_URL}/users/${data?._id}`, userUpdate)
 .then(res =>{
   console.log(res.data);
   if(res.data.modifiedCount > 0){

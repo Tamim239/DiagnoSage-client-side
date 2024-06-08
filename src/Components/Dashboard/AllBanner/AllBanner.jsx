@@ -3,10 +3,31 @@ import { useBanner } from "../../../Hook/useBanner"
 import { FaDeleteLeft } from "react-icons/fa6";
 import axios from "axios";
 export const AllBanner = () => {
+  // const [isActive, setIsActive] = useState('')
   const {data, isLoading, refetch} = useBanner();
   if(isLoading){
     return <progress className="progress w-56"></progress>
   }
+
+
+  const handleStatusBtn = (item) =>{
+    let isActive = item?.isActive
+    if(isActive === 'true'){
+       isActive = 'false'
+    } else{
+      isActive = 'true'
+    }
+    const updateStatus = {
+      isActive : isActive
+    }
+  axios.put(`${import.meta.env.VITE_API_URL}/banners/${item?._id}`, updateStatus)
+  .then(res =>{
+    if(res.data.modifiedCount > 0){
+      refetch()
+    }
+  })
+  }
+
 
   const handleDelete = (id)=>{
 console.log(id)
@@ -68,7 +89,7 @@ console.log(id)
         </td>
         <td>{item?.couponRate}</td>
         <th>
-          <button className="btn btn-ghost btn-xs">{item?.isActive}</button>
+          <button onClick={()=>handleStatusBtn(item)} className="btn btn-ghost btn-xs">{item?.isActive}</button>
         </th>
         <th>
           <button onClick={()=>handleDelete(item?._id)} className="btn "><FaDeleteLeft className="text-xl text-red-500"/></button>
