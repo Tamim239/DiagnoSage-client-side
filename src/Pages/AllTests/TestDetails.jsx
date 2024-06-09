@@ -1,6 +1,7 @@
 
 import toast from "react-hot-toast"
 import { useLoaderData  } from "react-router-dom"
+import { Payment } from "../Payment/Payment"
 
 export const TestDetails = () => {
     const data = useLoaderData()
@@ -61,12 +62,8 @@ export const TestDetails = () => {
     <h2 className="mt-6 font-black uppercase">
       <span className="text-4xl font-black sm:text-5xl lg:text-6xl"> Get 20% off </span>
     </h2>
-    <input type="text" placeholder="coupon code here" className="input input-bordered w-full max-w-xs mt-2"/>
-    <button
-      className="mt-8 inline-block w-full bg-black py-4 text-sm font-bold uppercase tracking-widest text-white"
-    >
-      Get Discount
-    </button>
+    <input type="text" placeholder="coupon code here" className="input input-bordered w-full max-w-xs my-4"/>
+    <Payment price={data?.price}/>
     <p className="mt-8 text-xs font-medium uppercase text-gray-400">
       Offer valid until {new Date().toLocaleDateString()} *
     </p>
