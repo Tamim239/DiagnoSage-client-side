@@ -25,7 +25,8 @@ export const AllBanner = () => {
     if(res.data.modifiedCount > 0){
       refetch()
     }
-  })
+  });
+
   }
 
 
