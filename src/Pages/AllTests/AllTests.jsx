@@ -51,14 +51,14 @@ export const AllTests = () => {
 
           <div className="mt-2">
             <div>
-              <div>
-                <div className="sr-only">${item?.price}</div>
+              <div className="flex justify-between items-center">
+                <h3 className="">${item?.price}</h3>
 
-                <dd className="text-sm text-gray-500">{item?.testDate}</dd>
+                <p className="text-sm text-gray-500">Date: {item?.testDate}</p>
               </div>
 
               <div>
-               <h1 className="font-medium"> {item?.title}</h1>
+               <h1 className="font-medium text-xl">{item?.name}</h1>
               </div>
             </div>
             <div>
@@ -67,7 +67,7 @@ export const AllTests = () => {
           </div>
           <div className="text-end">
             <Link to={`/testDetails/${item?._id}`}>
-              <button className="btn">Details</button>
+              <button className="btn btn-primary">Details</button>
             </Link>
           </div>
         </div>)

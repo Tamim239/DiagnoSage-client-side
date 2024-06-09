@@ -48,7 +48,7 @@ export const Banner = () => {
                 </p>
                 <div className="flex items-center justify-center">
                   <p className="mr-2 text-5xl font-semibold text-white lg:text-6xl">
-                    {couponRate}
+                    {couponRate}%
                   </p>
                 </div>
               </div>

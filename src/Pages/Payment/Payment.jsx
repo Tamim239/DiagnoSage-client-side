@@ -4,12 +4,12 @@ import { CheckOutForm } from "./CheckOutForm";
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API_KEY);
-export const Payment = ({price}) => {
+export const Payment = ({singleData}) => {
   return (
     <div>
          <div>
         <Elements stripe={stripePromise}>
-          <CheckOutForm  price={price}/>
+          <CheckOutForm singleData={singleData}/>
         </Elements>
       </div>
     </div>

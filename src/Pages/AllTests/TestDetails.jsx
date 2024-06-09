@@ -2,38 +2,21 @@
 import toast from "react-hot-toast"
 import { useLoaderData  } from "react-router-dom"
 import { Payment } from "../Payment/Payment"
+import { useBannerActive } from "../../Hook/useBannerActive"
+import { useAuth } from "../../Hook/useAuth"
 
 export const TestDetails = () => {
+  const {data: banner} = useBannerActive()
     const data = useLoaderData()
-
+   const {setCouponData} = useAuth()
+   
     const handleBookNow = () =>{
       if(data?.slots <= 0){
         return toast.error("you don't have book now")
       }
       document.getElementById('my_modal_3').showModal()
-    //   const name = data?.name;
-    // const imageURL = data?.imageURL;
-    // const title = data?.title;
-    // const couponCode = data?.couponCode;
-    // const couponRate = data?.couponRate;
-    // const isActive =data?.isActive;
-    // const description = data?.description;
-
-    //   const booking = {
-    //     name,
-    //     imageURL,
-    //     title,
-    //     couponCode,
-    //     couponRate,
-    //     isActive,
-    //     description,
-    //   }
-      //  axios.post(`http://localhost:5000/bookList`,)
-      //  .then((res)=>{
-      //     console.log(res.data)
-      //  })
-
     }
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full mx-auto">
@@ -60,13 +43,13 @@ export const TestDetails = () => {
 
   <div className="p-4 text-center sm:p-6 md:col-span-2 lg:p-8">
     <h2 className="mt-6 font-black uppercase">
-      <span className="text-4xl font-black sm:text-5xl lg:text-6xl"> Get 20% off </span>
+      <span className="text-4xl font-black sm:text-5xl lg:text-6xl"> Get <span>{banner?.couponRate}</span>% off </span>
     </h2>
-    <input type="text" placeholder="coupon code here" className="input input-bordered w-full max-w-xs my-4"/>
-    <Payment price={data?.price}/>
+   <input onBlur={(e)=>setCouponData(e.target.value)} type="text" placeholder="coupon code here" name="matchCoupon" className="input input-bordered w-full max-w-xs my-4"/>
+    <Payment singleData={data}/>
     <p className="mt-8 text-xs font-medium uppercase text-gray-400">
       Offer valid until {new Date().toLocaleDateString()} *
-    </p>
+    </p> 
   </div>
 </section>
   </div>

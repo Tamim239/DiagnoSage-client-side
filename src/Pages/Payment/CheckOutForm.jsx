@@ -3,20 +3,24 @@ import { useEffect, useState } from "react";
 import { useAxiosSecure } from "../../Hook/useAxiosSecure";
 import { useAuth } from "../../Hook/useAuth";
 import { useBannerActive } from "../../Hook/useBannerActive";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Navigate } from "react-router-dom";
 
-export const CheckOutForm = ({price}) => {
-    console.log(price)
+export const CheckOutForm = ({singleData}) => {
+  const { _id, name, title, description, price, imageURL } = singleData;
   const axiosSecure = useAxiosSecure();
   const [error, setError] = useState("");
   const [secretClient, setSecretClient] = useState("");
   const [transaction, setTransaction] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { user } = useAuth();
+  const { user, couponData = null} = useAuth();
   const {data} = useBannerActive();
-  const couponCode = data?.couponCode;
-  console.log(couponCode)
-  const totalPrice = parseFloat(price);
+  let totalPrice = parseFloat(price);
+  if( data?.couponCode === couponData){
+    totalPrice = parseFloat(price * data?.couponRate / 100);
+  }
 
   useEffect(() => {
     axiosSecure
@@ -29,6 +33,8 @@ export const CheckOutForm = ({price}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTransaction('');
+    setSecretClient('');
     if (!stripe || !elements) {
       return;
     }
@@ -67,6 +73,22 @@ export const CheckOutForm = ({price}) => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransaction(paymentIntent.id);
+      
+      const booking = {
+        _id,
+        name,
+        imageURL,
+        title,
+        description,
+        totalPrice,
+        status: 'pending'
+      }
+       axios.post(`http://localhost:5000/bookList`,booking)
+       .then((res)=>{
+          console.log(res.data)
+          toast.success("insert successfully")
+          Navigate(-1)
+       })
       }
     }
   };

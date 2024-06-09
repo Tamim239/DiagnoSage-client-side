@@ -10,6 +10,9 @@ export const useBannerActive = () => {
             return res.data
         }
     })
+    if(isLoading){
+        return <p>loading.....</p>
+    }
 
-  return {data, isLoading, refetch}
+  return {data, refetch}
 }
