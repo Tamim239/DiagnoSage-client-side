@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 
 export const CheckOutForm = ({singleData}) => {
-  const { _id, name, title, description, price, imageURL } = singleData;
+  const { _id, name, title, description, price, imageURL, testDate } = singleData;
   const axiosSecure = useAxiosSecure();
   const [error, setError] = useState("");
   const [secretClient, setSecretClient] = useState("");
@@ -75,19 +75,24 @@ export const CheckOutForm = ({singleData}) => {
         setTransaction(paymentIntent.id);
       
       const booking = {
-        _id,
+        oldID:_id,
+        email: user?.email,
         name,
         imageURL,
         title,
         description,
         totalPrice,
+        testDate,
+        time: new Date().toLocaleTimeString,
         status: 'pending'
       }
        axios.post(`http://localhost:5000/bookList`,booking)
        .then((res)=>{
           console.log(res.data)
-          toast.success("insert successfully")
-          Navigate(-1)
+          if(res.data.insertedId){
+            toast.success("insert successfully")
+            Navigate(-1)
+          }
        })
       }
     }

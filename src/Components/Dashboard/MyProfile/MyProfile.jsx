@@ -21,8 +21,7 @@ export const MyProfile = () => {
   if (isPending) {
     return <p>loading.....</p>;
   }
-  console.log(data);
-
+ 
   const handleUserInfoUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -32,7 +31,6 @@ export const MyProfile = () => {
     const district = form.district.value;
     const upazila = form.upazila.value;
     const image = form.imageURL.value;
-
     const userUpdate = {
       name,
       email,
@@ -41,7 +39,6 @@ export const MyProfile = () => {
       upazila,
       image,
     };
-    console.log(userUpdate);
 axios.put(`${import.meta.env.VITE_API_URL}/users/${data?._id}`, userUpdate)
 .then(res =>{
   console.log(res.data);
@@ -50,9 +47,7 @@ axios.put(`${import.meta.env.VITE_API_URL}/users/${data?._id}`, userUpdate)
     toast.success('updated successfully');
   }
 })
-
-
-  };
+}
   return (
     <div className="flex flex-col justify-center border-x-2 border-gray-300 rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
       <img

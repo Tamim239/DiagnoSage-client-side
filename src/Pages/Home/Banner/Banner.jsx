@@ -7,17 +7,9 @@ export const Banner = () => {
     return <progress className="progress w-56"></progress>;
   }
   console.log(data);
-  console.log(data.imageURL);
-  const {
-    imageURL,
-    title,
-    couponCode,
-    couponRate,
-    description,
-  } = data;
   return (
     <section
-      className={`relative bg-[url('${imageURL}')] bg-cover bg-center bg-no-repeat`}
+      className={`relative bg-[url('${data?.imageURL}')] bg-cover bg-center bg-no-repeat`}
     >
       <div className="absolute inset-0 bg-transparent from-black/65 to-white/25 ltr:bg-gradient-to-r rtl:bg-gradient-to-l"></div>
 
@@ -25,10 +17,10 @@ export const Banner = () => {
         <div className="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right ">
           <h1 className="text-3xl font-extrabold sm:text-5xl">
             <strong className="block font-extrabold text-black">
-              {title}
+              {data?.title}
             </strong>
           </h1>
-          <p className="mt-4 max-w-lg sm:text-xl/relaxed ">{description}</p>
+          <p className="mt-4 max-w-lg sm:text-xl/relaxed ">{data?.description}</p>
 
           <div className="mt-8 -ml-10 text-center">
             <Link
@@ -44,11 +36,11 @@ export const Banner = () => {
             <div className="p-8 bg-gray-800 rounded">
               <div className="mb-4 text-center">
                 <p className="text-xl font-medium tracking-wide text-white">
-                  Promo Code : <span>{couponCode}</span>
+                  Promo Code : <span>{data?.couponCode}</span>
                 </p>
                 <div className="flex items-center justify-center">
                   <p className="mr-2 text-5xl font-semibold text-white lg:text-6xl">
-                    {couponRate}%
+                    {data?.couponRate}%
                   </p>
                 </div>
               </div>
