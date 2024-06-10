@@ -60,6 +60,7 @@ export const Register = () => {
         upazila: data.upazila,
         image: res.data.data.display_url,
         status: "active",
+        role: 'user',
       };
       console.log(userList);
       // image bb
