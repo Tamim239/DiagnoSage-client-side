@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true);
   const [couponData, setCouponData] = useState('')
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+  const [bookData, setBookData] = useState();
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -95,8 +96,8 @@ const AuthProvider = ({ children }) => {
     resetPassword,
     logOut,
     updateUserProfile,
-    couponData, setCouponData
-  }
+    couponData, setCouponData, bookData, setBookData
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

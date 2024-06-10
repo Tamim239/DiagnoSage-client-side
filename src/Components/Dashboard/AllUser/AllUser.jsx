@@ -21,7 +21,7 @@ export const AllUser = () => {
           title: `${user?.name} is Admin now!`,
           showConfirmButton: false,
           timer: 1500,
-        });
+        })
       }
     });
   };

@@ -1,21 +1,38 @@
-
 import toast from "react-hot-toast"
 import { useLoaderData  } from "react-router-dom"
 import { Payment } from "../Payment/Payment"
 import { useBannerActive } from "../../Hook/useBannerActive"
 import { useAuth } from "../../Hook/useAuth"
+import axios from "axios"
 
 export const TestDetails = () => {
   const {data: banner} = useBannerActive()
     const data = useLoaderData()
    const {setCouponData} = useAuth()
+   const {user, setBookData} = useAuth()
    
     const handleBookNow = () =>{
       if(data?.slots <= 0){
         return toast.error("you don't have book now")
       }
       document.getElementById('my_modal_3').showModal()
-    }
+      const bookingData = {
+        email: user?.email,
+        name: data?.name,
+        imageURL: data?.imageURL,
+        title: data?.title,
+        description: data?.description,
+        totalPrice: data?.totalPrice,
+        testDate: data?.testDate,
+        time: new Date().toLocaleTimeString,
+        status: 'pending'
+      }
+      axios.post(`http://localhost:5000/bookList`,bookingData)
+       .then((res)=>{
+        console.log(res.data);
+        setBookData(res.data)
+       })
+    };
 
 
   return (

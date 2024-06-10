@@ -5,7 +5,6 @@ import { useAuth } from "../../Hook/useAuth";
 import { useBannerActive } from "../../Hook/useBannerActive";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Navigate } from "react-router-dom";
 
 export const CheckOutForm = ({singleData}) => {
   const { _id, name, title, description, price, imageURL, testDate } = singleData;
@@ -15,7 +14,7 @@ export const CheckOutForm = ({singleData}) => {
   const [transaction, setTransaction] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { user, couponData = null} = useAuth();
+  const { user, couponData = null, bookData} = useAuth();
   const {data} = useBannerActive();
   let totalPrice = parseFloat(price);
   if( data?.couponCode === couponData){
@@ -75,23 +74,22 @@ export const CheckOutForm = ({singleData}) => {
         setTransaction(paymentIntent.id);
       
       const booking = {
-        oldID:_id,
-        email: user?.email,
-        name,
-        imageURL,
-        title,
-        description,
-        totalPrice,
-        testDate,
-        time: new Date().toLocaleTimeString,
-        status: 'pending'
-      }
-       axios.post(`http://localhost:5000/bookList`,booking)
+         
+        // email: user?.email,
+        // name,
+        // imageURL,
+        // title,
+        // description,
+        // totalPrice,
+        // testDate,
+        // time: new Date().toLocaleTimeString,
+        status: 'completed'
+      };
+       axios.put(`http://localhost:5000/bookListStatus/${bookData?.insertedId}`,{status: 'complete'})
        .then((res)=>{
           console.log(res.data)
           if(res.data.insertedId){
             toast.success("insert successfully")
-            Navigate(-1)
           }
        })
       }
