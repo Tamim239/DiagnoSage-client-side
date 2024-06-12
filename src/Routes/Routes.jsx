@@ -19,12 +19,13 @@ import { StatisticsPage } from "../Components/Dashboard/StatisticsPage/Statistic
 import { AllTests } from "../Pages/AllTests/AllTests";
 import { TestDetails } from "../Pages/AllTests/TestDetails";
 import { UpdateTests } from "../Components/Dashboard/UpdateTests/UpdateTests";
+import { ErrorPage } from "../Components/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    //   errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
