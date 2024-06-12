@@ -29,7 +29,6 @@ export const TestDetails = () => {
       }
       axios.post(`http://localhost:5000/bookList`,bookingData)
        .then((res)=>{
-        console.log(res.data);
         setBookData(res.data)
        })
     };

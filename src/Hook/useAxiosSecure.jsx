@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
+import { useEffect, useState } from "react";
 
 
 const axiosSecure = axios.create({
@@ -10,28 +11,46 @@ const axiosSecure = axios.create({
 export const useAxiosSecure = () => {
   const {logOut} = useAuth();
   const navigate = useNavigate();
-  
-    axiosSecure.interceptors.request.use((config)=>{
-      const token = localStorage.getItem('token');
-      console.log('interceptor break', token)
-      config.headers.authorization = `Bearer ${token}`
-      return config
-    }, (error)=>{
-      return Promise.reject(error)
-    })
-  
-    // access interceptors 401 403 in not allowed
-    axiosSecure.interceptors.response.use((response)=>{
-      return response
-    }, async(err)=>{
-      const status = err.response.status;
-      console.log(status)
-      if(status === 401 || status === 403){
-      await logOut()
-        navigate('/login')
+  const [errorStatus, setErrorStatus] = useState(null);
+
+  useEffect(() => {
+    if (errorStatus === 401 || errorStatus === 403) {
+      logOut().then(() => {
+        navigate('/login');
+      });
+    }
+  }, [errorStatus, logOut, navigate]);
+
+  useEffect(() => {
+    const requestInterceptor = axiosSecure.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('token');
+        // console.log('interceptor break', token);
+        config.headers.authorization = `Bearer ${token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-      return Promise.reject(err)
-    })
-  
+    );
+
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      async (err) => {
+        const status = err.response.status;
+        // console.log(status);
+        setErrorStatus(status); // Set the error status
+        return Promise.reject(err);
+      }
+    );
+
+    // Cleanup function to remove interceptors when the component unmounts
+    return () => {
+      axiosSecure.interceptors.request.eject(requestInterceptor);
+      axiosSecure.interceptors.response.eject(responseInterceptor);
+    };
+  }, []);
     return  axiosSecure
 }

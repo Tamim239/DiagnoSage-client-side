@@ -6,7 +6,6 @@ const [promotionData, setPromotionData] = useState([]);
 useEffect(()=>{
 axios.get(`${import.meta.env.VITE_API_URL}/promotion`)
 .then(res =>{
-    console.log(res.data)
     setPromotionData(res.data)
 })
 },[])

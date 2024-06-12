@@ -1,3 +1,5 @@
+import { useAuth } from "../../../Hook/useAuth"
+import { useUserInfo } from "../../../Hook/useUserInfo"
 import { Banner } from "../Banner/Banner"
 import { Feature } from "../Feature/Feature"
 import { NewsLetter } from "../NewsLetter/NewsLetter"
@@ -8,10 +10,12 @@ import { Testimonial } from "../Testimonial/Testimonial"
 
 
 export const Home = () => {
+  const {user} = useAuth()
+  const {data} = useUserInfo()
   return (
     <div>
      <Banner />
-     <Feature />
+    { user && data?.status === "active" && <Feature />}
      <Promotion />
      <PersonalizedRecommendation />
      <Testimonial />

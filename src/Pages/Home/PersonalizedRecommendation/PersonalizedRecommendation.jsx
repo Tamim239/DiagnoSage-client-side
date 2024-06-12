@@ -13,7 +13,6 @@ export const PersonalizedRecommendation = () => {
   useEffect(()=>{
     axios.get(`${import.meta.env.VITE_API_URL}/recommand`)
     .then(res =>{
-        console.log(res.data)
         setRecommend(res.data)
     })
   },[])

@@ -7,10 +7,10 @@ export const Dashboard = () => {
 
  
     const [isAdmin, isAdminLoading] = useAdmin();
+    if(isAdminLoading){
+        return <progress className="progress w-56"></progress>
+    }
     console.log(isAdmin)
-    // if(isAdminLoading){
-    //     return <progress className="progress w-56"></progress>
-    // }
   return (
     <div className='flex'>
         {/* dashboard side option */}

@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 export const AllTest = () => {
 const {data, isPending, refetch} = useTests();
-console.log(data)
 if(isPending){
   return <progress className="progress w-56"></progress>
 }

@@ -10,7 +10,6 @@ export const AllTests = () => {
   if(isPending){
     return <p>loading.......</p>
   }
-  console.log(data)
   return (
     <div className="pt-20">
       <div className="flex justify-center items-center gap-6">
