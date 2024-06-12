@@ -30,7 +30,7 @@ export const NewsLetter = () => {
                 </form>
                 <p className="mt-3 max-w-lg text-[15px] text-blue-100 sm:mx-auto">
                     No spam ever, we are care about the protection of your data.
-                    Read our <a className="underline" href="javascript:void(0)"> Privacy Policy </a>
+                    Read our <a className="underline" href=""> Privacy Policy </a>
                 </p>
             </div>
         </div>

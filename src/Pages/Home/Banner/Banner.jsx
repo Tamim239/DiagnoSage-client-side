@@ -6,10 +6,9 @@ export const Banner = () => {
   if (isLoading) {
     return <progress className="progress w-56"></progress>;
   }
-  console.log(data);
   return (
     <section
-      className={`relative bg-[url('${data?.imageURL}')] bg-cover bg-center bg-no-repeat`}
+      className={`relative bg-[url(${data?.imageURL})] bg-cover bg-center bg-no-repeat`}
     >
       <div className="absolute inset-0 bg-transparent from-black/65 to-white/25 ltr:bg-gradient-to-r rtl:bg-gradient-to-l"></div>
 

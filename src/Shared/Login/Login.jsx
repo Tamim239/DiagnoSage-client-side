@@ -7,8 +7,6 @@ export const Login = () => {
 
   const {signIn} = useAuth()
 const navigate = useNavigate()
-// const location = useLocation()
-
   const handleSubmit = e =>{
     e.preventDefault();
     const form = e.target;
@@ -27,8 +25,7 @@ const navigate = useNavigate()
           popup: 'animate_animated animate_fadeOutUp'
         },
     })
-navigate('/dashboard')
-
+      navigate('/')
     })
     .catch(err =>{
       console.log(err.message)

@@ -1,9 +1,14 @@
 
+import { useAdmin } from "../../Hook/useAdmin"
 import { useAuth } from "../../Hook/useAuth"
 import { Link, NavLink } from 'react-router-dom'
+import { useUserInfo } from "../../Hook/useUserInfo"
 
 export const Navbar = () => {
   const {user, logOut} = useAuth()
+  const {isAdmin} = useAdmin();
+  console.log(isAdmin)
+  const {data} = useUserInfo()
   const navOptions = (
     <>
       <li>
@@ -12,8 +17,15 @@ export const Navbar = () => {
       <li>
         <NavLink to="/allTests">All Tests</NavLink>
       </li>
-      {user && (
-        <Link to="/dashboard" className="indicator">
+      {user && data?.status === "active" && (
+        <Link to="/dashboard/myProfile" className="indicator">
+          <button className="mr-3">
+            Dashboard
+          </button>
+        </Link>
+      )}
+      { data?.role === 'admin' && (
+        <Link to="/dashboard/addBanner" className="indicator">
           <button className="mr-3">
             Dashboard
           </button>
