@@ -1,18 +1,40 @@
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
-import { useTests } from "../../Hook/useTests";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 export const AllTests = () => {
-  const {data, isPending} = useTests();
   const [startDate, setStartDate] = useState(new Date());
-  if(isPending){
-    return <p>loading.......</p>
-  }
+  const [data, setData] = useState([])
+
+ useEffect(()=>{
+   axios.get(`${import.meta.env.VITE_API_URL}/dateTests`)
+   .then(res =>{
+    console.log(res.data);
+   setData(res.data)
+   })
+ },[])
+
+    const handleDateFilter = () =>{
+        const today = new Date().toLocaleDateString()
+        const searchDate = startDate.toLocaleDateString()
+        if(today > searchDate){
+          return toast.error('Not a valid date')
+        }
+        axios.get(`${import.meta.env.VITE_API_URL}/filterDate?searchDate=${searchDate}`)
+        .then(res =>{
+          console.log(res.data)
+          setData(res.data)
+        })
+    }
+
+
   return (
     <div className="pt-20">
-      <div className="flex justify-center items-center gap-6">
+      <div className="md:flex justify-center items-center gap-6 mt-2">
         <div className="flex items-center justify-center gap-2">
         <p>From:</p>
         <div>
@@ -24,8 +46,8 @@ export const AllTests = () => {
           />
         </div>
         </div>
-        <div className="flex items-center justify-center gap-2">
-        <p>To :</p>
+        <div className="flex items-center max-sm:my-2 justify-center gap-2">
+        <p>To:</p>
         <div>
           <DatePicker
             className="border p-2 rounded-md w-full"
@@ -34,8 +56,8 @@ export const AllTests = () => {
           />
         </div>
         </div>
-        <div>
-          <button className="btn">Apply</button>
+        <div className="max-sm:text-center">
+          <button onClick={handleDateFilter} className="btn">Apply</button>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

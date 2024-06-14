@@ -13,11 +13,10 @@ export const AddTest = () => {
     const form = e.target;
     const name = form.name.value;
     const imageURL = form.imageURL.value;
-    const testDate = new Date().toLocaleDateString(setStartDate);
+    const testDate = startDate.toLocaleDateString();
     const price = parseFloat(form.price.value);
     const slots = parseInt(form.slots.value);
     const description = form.description.value;
-
     const testInfo = {
       name,
       imageURL,

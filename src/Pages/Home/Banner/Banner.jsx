@@ -9,7 +9,6 @@ export const Banner = () => {
   return (
     <section
     className={`relative `}
-    // bg-[url(https://i.ibb.co/RcwGVwh/pexels-fr3nks-287237.jpg)] bg-cover bg-center bg-no-repeat
     style={{ backgroundImage: `url(${data?.imageURL})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}
     >
       <div className="absolute inset-0 bg-transparent from-black/65 to-white/25 ltr:bg-gradient-to-r rtl:bg-gradient-to-l"></div>
@@ -31,7 +30,7 @@ export const Banner = () => {
             </Link>
           </div>
         </div>
-        <div className="grid max-w-screen-md gap-10 sm:mx-auto">
+        <div className="grid max-w-screen-md gap-10 sm:mx-auto max-sm:mt-16">
           <div>
             <div className="p-8 bg-gray-800 rounded">
               <div className="mb-4 text-center">

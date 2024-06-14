@@ -2,6 +2,7 @@
 import { useAuth } from "../../Hook/useAuth"
 import { NavLink } from 'react-router-dom'
 import { useUserInfo } from "../../Hook/useUserInfo"
+import logo  from "/diagno-sage.png";
 
 export const Navbar = () => {
   const {user, logOut} = useAuth()
@@ -64,7 +65,8 @@ export const Navbar = () => {
             {navOptions}
           </ul>
         </div>
-        <h1 className="btn btn-ghost text-xl">DiagnoSage</h1>
+        <img src={logo} alt="" className="size-16 text-deep-purple-accent-400 "/>
+        <h1 className="text-xl">DiagnoSage</h1>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
