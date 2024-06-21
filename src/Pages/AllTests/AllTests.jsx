@@ -30,8 +30,6 @@ export const AllTests = () => {
           setData(res.data)
         })
     }
-
-
   return (
     <div className="pt-20">
       <div className="md:flex justify-center items-center gap-6 mt-2">

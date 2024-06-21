@@ -38,7 +38,7 @@ const handleDelete = (id)=>{
             });
   
    }
-
+console.log(data)
   return (
     <div className="overflow-x-auto">
   <table className="table">

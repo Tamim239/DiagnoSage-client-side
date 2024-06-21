@@ -4,26 +4,24 @@ import { useBookList } from "../../../Hook/useBookList"
 export const MyUpcomingAppointments = () => {
 
   const {data, isPending, refetch} = useBookList()
+  console.log(data)
 if(isPending){
   return <p>loading.....</p>
 }
 console.log(data)
 
 const handleCancel = (id)=> {
-console.log(id, 'cancelled')
-
 axios.put(`${import.meta.env.VITE_API_URL}/bookList/${id}`)
 .then(res =>{
   if(res.data.modifiedCount > 0){
     refetch()
   }
 })
-
 }
 
   return (
 <div className="overflow-x-auto">
-  <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+  <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm overflow-y-auto">
     <thead>
       <tr>
         <th className=" px-4 py-2 font-medium text-gray-900">Test Name</th>
@@ -44,7 +42,7 @@ axios.put(`${import.meta.env.VITE_API_URL}/bookList/${id}`)
            <button
            disabled={item?.status === 'cancel'}
            onClick={()=>handleCancel(item?._id)}
-              className={`${item?.status === 'cancel'? 'cursor-not-allowed' : 'cursor-pointer'} rounded bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700`}
+              className={`${item?.status === 'cancel'? 'cursor-not-allowed' : 'cursor-pointer hover:bg-indigo-700'} rounded bg-indigo-600 px-4 py-2 font-medium text-white `}
             >
               Cancel
             </button>
