@@ -30,7 +30,7 @@ export const UpdateTests = () => {
       description,
     };
     console.log(testInfo);
-      axios.patch(`http://localhost:5000/tests/${_id}`, testInfo)
+      axios.patch(`https://diagno-sage-server.vercel.app/tests/${_id}`, testInfo)
        .then((res)=>{
           if(res.data.modifiedCount > 0){
             refetch()

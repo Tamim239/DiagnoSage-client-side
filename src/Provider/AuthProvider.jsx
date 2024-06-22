@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
         // Assign local storage, in memory,
         const userInfo = { email: currentUser.email };
         try {
-          const res = await axios.post('http://localhost:5000/jwt', userInfo);
+          const res = await axios.post('https://diagno-sage-server.vercel.app/jwt', userInfo);
           if (res.data.token) {
             localStorage.setItem('token', res.data.token);
           }

@@ -40,7 +40,7 @@ export const Reservation = () => {
 
   return (
     <div>
-      <form onSubmit={handleSearch} className="flex justify-center items-center my-5">
+      <form onSubmit={handleSearch} className="flex flex-wrap justify-center items-center my-5">
         <label htmlFor="search" className="input input-bordered flex items-center gap-2 ">
           <input type="text" name="search" className="grow" placeholder="Search email here" />
           <svg
@@ -56,7 +56,7 @@ export const Reservation = () => {
             />
           </svg>
         </label>
-        <button type="submit" className="btn btn-outline ml-2">Search</button>
+        <button type="submit" className="btn btn-outline max-sm:mt-2 ml-2">Search</button>
       </form>
 
       <div className="overflow-x-auto">

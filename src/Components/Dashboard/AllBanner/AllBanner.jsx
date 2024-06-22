@@ -57,7 +57,7 @@ export const AllBanner = () => {
     });
   };
   return (
-    <div className="overflow-x-auto">
+    <div className="">
       <table className="table">
         {/* head */}
         <thead>

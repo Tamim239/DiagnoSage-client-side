@@ -60,7 +60,7 @@ export const Register = () => {
         upazila: data.upazila,
         image: res.data.data.display_url,
         status: "active",
-        role: 'user',
+        role: "user",
       };
       console.log(userList);
       // image bb
@@ -72,7 +72,7 @@ export const Register = () => {
             axiosPublic.post("/users", userList).then((res) => {
               if (res.data.insertedId) {
                 reset();
-                
+
                 Swal.fire({
                   position: "center",
                   icon: "success",
@@ -104,8 +104,7 @@ export const Register = () => {
               Welcome to DiagnoSage
             </h2>
             <p className="mt-4 leading-relaxed text-white/90">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              nam dolorum aliquam, quibusdam aperiam voluptatum.
+              Explore what we offer. Find what you need.
             </p>
           </div>
         </section>

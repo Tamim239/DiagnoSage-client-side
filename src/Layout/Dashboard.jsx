@@ -14,8 +14,8 @@ export const Dashboard = () => {
   return (
     <div className='flex'>
         {/* dashboard side option */}
-        <div className="w-64 min-h-screen bg-orange-500">
-            <ul className='menu p-4'>
+        <div className=" md:w-64 min-h-screen bg-orange-500">
+            <ul className='menu p-2'>
                 {
                     isAdmin ? 
                     <>
@@ -42,7 +42,7 @@ export const Dashboard = () => {
 
         </div>
         {/* dashboard content */}
-        <div className='flex-1 p-8'>
+        <div className='flex-1 md:p-8 overflow-y-auto'>
             <Outlet></Outlet>
         </div>
     </div>

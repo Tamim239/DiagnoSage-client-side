@@ -34,8 +34,8 @@ export const AddBanner = () => {
 
   return (
     <section className="bg-gray-100">
-      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+      <div className="mx-auto max-w-screen-xl md:px-4 md:py-16 sm:px-6 lg:px-8">
+        <div className="rounded-lg bg-white p-4 shadow-lg lg:col-span-3 lg:p-12">
           <form onSubmit={handleAddBanner} className="space-y-4">
             <div>
               <label className="sr-only" htmlFor="name">

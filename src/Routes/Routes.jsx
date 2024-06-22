@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         path: "/testDetails/:id",
         element: <TestDetails />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tests/${params.id}`),
+          fetch(`https://diagno-sage-server.vercel.app/tests/${params.id}`),
       },
       {
         path: "/login",
@@ -117,7 +117,7 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/tests/${params.id}`),
+          fetch(`https://diagno-sage-server.vercel.app/tests/${params.id}`),
       },
       {
         path: "reservation",

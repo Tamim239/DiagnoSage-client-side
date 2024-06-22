@@ -85,7 +85,7 @@ export const CheckOutForm = ({singleData}) => {
         // time: new Date().toLocaleTimeString,
         status: 'completed'
       };
-       axios.put(`http://localhost:5000/bookListStatus/${bookData?.insertedId}`,{status: 'complete'})
+       axios.put(`https://diagno-sage-server.vercel.app/bookListStatus/${bookData?.insertedId}`,{status: 'complete'})
        .then((res)=>{
           console.log(res.data)
           if(res.data.insertedId){

@@ -27,7 +27,7 @@ export const TestDetails = () => {
         time: new Date().toLocaleTimeString,
         status: 'pending'
       }
-      axios.post(`http://localhost:5000/bookList`,bookingData)
+      axios.post(`https://diagno-sage-server.vercel.app/bookList`,bookingData)
        .then((res)=>{
         setBookData(res.data)
        })
