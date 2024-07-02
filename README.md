@@ -8,6 +8,7 @@
 //comment following commands
 Npm i install
 set up MongoDb env in your pc
+Set up env firebase confiq
 ```
 
 2. create vercel.json file for configuring server
