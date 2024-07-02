@@ -1,6 +1,35 @@
  -------------------------------------------------------------------
  This website is MERN Project.
  ------------------------------------------------------------------
+
+1. Set Up
+
+```js
+//comment following commands
+Npm i install
+set up MongoDb env in your pc
+```
+
+2. create vercel.json file for configuring server
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js",
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    }
+  ]
+}
+```
  
  website name : DiagnoSage  (Diagnostic Center Management System )
  live link:  https://diagnosage.netlify.app/
